@@ -9,13 +9,19 @@ namespace Compactador.Compactor
     {
         public void Compacta(string text, string compactado)
         {
+            bool primeiro=true;
             string[] descompactado = File.ReadAllLines(text, Encoding.UTF7);
          
             string textonovo="";
 
             foreach (string line in descompactado)
             {
-                textonovo +=  line+"´";
+                if (primeiro==true)
+                {
+                    textonovo += line;
+                    primeiro = false;
+                }else
+                textonovo +=  line;
             }
             descompactado = null;
             string textNovo = "", dicionario = ""; ;
