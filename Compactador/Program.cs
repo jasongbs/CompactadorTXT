@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Text;
 using Compactador.Compactor;
 
@@ -12,6 +11,7 @@ namespace Compactador
             int escolha;
             string texto = @"E:\Users\Jason\Área de Trabalho/Compactador.txt";
             string compactado = @"E:\Users\Jason\Área de Trabalho/Compactado.unifaj";
+            string descompactado = @"E:\Users\Jason\Área de Trabalho/Descompactado.txt";
 
             var compactar = new Compactar();
             var descompactar = new Descompactar();
@@ -35,7 +35,7 @@ namespace Compactador
                 }
                 else if (escolha == 2)
                 {
-                    descompactar.Descompacta(compactado);
+                    descompactar.Descompacta(compactado, descompactado);
                     Console.ReadLine();
                     Console.Clear();
                 }

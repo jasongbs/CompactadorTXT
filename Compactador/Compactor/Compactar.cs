@@ -15,9 +15,9 @@ namespace Compactador.Compactor
 
             foreach (string line in descompactado)
             {
-                textonovo +=  line + " -- ";
+                textonovo +=  line+"´";
             }
-
+            descompactado = null;
             string textNovo = "", dicionario = ""; ;
             string[] palavras = textonovo.Split();
             var existe = new List<string> { };
@@ -33,7 +33,7 @@ namespace Compactador.Compactor
                     existe.Add(line);//adiciona a palavra no dicionário
                     dicionario = string.Concat(dicionario + line + " ");//atualiza o dicionário
                 }
-                if (existe.Equals("--"))
+                if (existe.Equals("´"))
                 {
                     textNovo = string.Concat(textNovo+ " ");
                 }
@@ -41,19 +41,26 @@ namespace Compactador.Compactor
                 textNovo = string.Concat(textNovo + posicao + " ");//E insere a posição na area de texto compactado
             }
             //Cria arquivo txt com o texto compactado
-            File.WriteAllText(compactado, string.Concat(dicionario + " |\n" + textNovo));
+            File.WriteAllText(compactado, string.Concat(dicionario + "| " + textNovo));
 
             FileStream original = new FileStream(text, FileMode.Open);
             FileStream compacto = new FileStream(compactado, FileMode.Open);
 
+            //Verifica se arquivo compactado é maior que o original
             if (original.Length < compacto.Length)
             {
                 Console.WriteLine(" ARQUIVO JÁ É MUITO PEQUENO", Encoding.UTF7);
+                original.Close();
+                compacto.Close();
                 File.WriteAllText(compactado, textonovo);
+
             }
-            Console.WriteLine("\n    -- COMPACTADO COM SUCESSO! --");
-            original.Close();
-            compacto.Close();
+            else
+            {
+                Console.WriteLine("\n    -- COMPACTADO COM SUCESSO! --");
+                original.Close();
+                compacto.Close();
+            }
         }
     }
 }
