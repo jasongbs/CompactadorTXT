@@ -2,16 +2,19 @@
 using System.Text;
 using Compactador.Compactor;
 
+
 namespace Compactador
 {
     class Program
     {
         static void Main(string[] args)
         {
+
             int escolha;
             string texto = @"E:\Users\Jason\Área de Trabalho/Compactador.txt";
             string compactado = @"E:\Users\Jason\Área de Trabalho/Compactado.unifaj";
             string descompactado = @"E:\Users\Jason\Área de Trabalho/Descompactado.txt";
+
 
             var compactar = new Compactar();
             var descompactar = new Descompactar();

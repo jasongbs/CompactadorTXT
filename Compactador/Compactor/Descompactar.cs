@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Compactador.Services;
 
 namespace Compactador.Compactor
 {
@@ -9,14 +10,16 @@ namespace Compactador.Compactor
     {
         public void Descompacta(string text, string descompactado)
         {
-            string compactado= "";
+            string compactado = "";
          try
             {
+                //string path = new DirDicionario().PathDirData();
                 compactado = File.ReadAllText(text, Encoding.UTF8);
+               string dirDicionario = File.ReadAllText(new DirDicionario().PathDirData(), Encoding.UTF8);
+
                 string textFinal = "";
-                string[] separadorDicTex = compactado.Split("|");//Separador Dicionário e Texto compactado
-                string[] dicionario = separadorDicTex[0].Split(" ");//Separado Dicionario
-                string[] txtComprimido = separadorDicTex[1].Split(" ");//Separador Texto Compactado
+                string[] dicionario = dirDicionario.Split(" ");//Separado Dicionario
+                string[] txtComprimido = compactado.Split(" ");//Separador Texto Compactado
 
                 foreach (var id in txtComprimido)//Inicia a descompactação
                 {

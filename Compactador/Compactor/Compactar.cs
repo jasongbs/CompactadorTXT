@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Compactador.Services;
 
 namespace Compactador.Compactor
 {
@@ -9,26 +10,19 @@ namespace Compactador.Compactor
     {
         public void Compacta(string text, string compactado)
         {
-            bool primeiro=true;
-            string[] descompactado = File.ReadAllLines(text, Encoding.UTF7);
+            string[] descompactado = File.ReadAllLines(text,Encoding.UTF7);
          
-            string textonovo="";
-
-            foreach (string line in descompactado)
-            {
-                if (primeiro==true)
-                {
-                    textonovo += line;
-                    primeiro = false;
-                }else
-                textonovo +=  line;
-            }
-            descompactado = null;
-            string textNovo = "", dicionario = ""; ;
-            string[] palavras = textonovo.Split();
+            // string dirDicionario = File.ReadAllText(new DirDicionario().PathDirData(), Encoding.UTF8);
+            string textonovo="",textNovo = "", dicionario = "";
+          
             var existe = new List<string> { };
             int posicao;
 
+            foreach (string line in descompactado)
+            {
+                textonovo += line+" ´ ";
+            }
+            string[] palavras = textonovo.Split(" ");
             /*Verifica se a palavra existe no dicionario, se não existir ele insere a mesma na area de dicionario
             e depois coloca a posicao do dicionário na area de textos compactados, caso contrario só coloca a posicao do dicionario.
             */
@@ -41,13 +35,17 @@ namespace Compactador.Compactor
                 }
                 if (existe.Equals("´"))
                 {
-                    textNovo = string.Concat(textNovo+ " ");
+                    textNovo = string.Concat(textNovo+ "\n ");
                 }
                 posicao = existe.IndexOf(line);//verifica a posição da palavra
                 textNovo = string.Concat(textNovo + posicao + " ");//E insere a posição na area de texto compactado
             }
             //Cria arquivo txt com o texto compactado
-            File.WriteAllText(compactado, string.Concat(dicionario + "| " + textNovo));
+            File.WriteAllText(compactado,textNovo);
+
+            //biblioteca
+            string caminho = new DirDicionario().PathDirData();
+            File.WriteAllText(caminho, dicionario);
 
             FileStream original = new FileStream(text, FileMode.Open);
             FileStream compacto = new FileStream(compactado, FileMode.Open);
@@ -59,7 +57,6 @@ namespace Compactador.Compactor
                 original.Close();
                 compacto.Close();
                 File.WriteAllText(compactado, textonovo);
-
             }
             else
             {
