@@ -18,12 +18,14 @@ namespace Compactador
 
             var compactar = new Compactar();
             var descompactar = new Descompactar();
+            var ordenaDicionario = new OrdenaDicionario();
             do
             {
                 Console.WriteLine(" COMPACTAÇÃO E DESCOMPACTAÇÃO DE ARQUIVOS", Encoding.UTF7);
                 Console.WriteLine("=========================================");
                 Console.WriteLine("1 - COMPACTAR ARQUIVO");
                 Console.WriteLine("2 - DESCOMPACTAR ARQUIVO");
+                Console.WriteLine("3 - ENSINAR");
                 Console.WriteLine("0 - SAIR");
                 Console.WriteLine("=========================================");
                 escolha = int.Parse(Console.ReadLine());
@@ -39,6 +41,12 @@ namespace Compactador
                 else if (escolha == 2)
                 {
                     descompactar.Descompacta(compactado, descompactado);
+                    Console.ReadLine();
+                    Console.Clear();
+                }
+                else if (escolha == 3)
+                {
+                    ordenaDicionario.Compacta(texto, compactado);
                     Console.ReadLine();
                     Console.Clear();
                 }
